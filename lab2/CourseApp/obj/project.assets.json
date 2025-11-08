@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {}
+    "net9.0": {
+      "CourseLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/CourseLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CourseLib.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "CourseLib/1.0.0": {
+      "type": "project",
+      "path": "../CourseLib/CourseLib.csproj",
+      "msbuildProject": "../CourseLib/CourseLib.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net9.0": []
+    "net9.0": [
+      "CourseLib >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Nikit\\.nuget\\packages\\": {}
@@ -31,7 +50,11 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Nikit\\OneDrive\\Desktop\\ITMO\\Object-oriented_programming\\lab2\\CourseLib\\CourseLib.csproj": {
+              "projectPath": "C:\\Users\\Nikit\\OneDrive\\Desktop\\ITMO\\Object-oriented_programming\\lab2\\CourseLib\\CourseLib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

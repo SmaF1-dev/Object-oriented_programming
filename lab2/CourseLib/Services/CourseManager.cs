@@ -18,10 +18,10 @@ public class CourseManager
         if (newTeacher == null)
             throw new ArgumentNullException(nameof(newTeacher));
 
-        var existing = teachers.FirstOrDefault(t => t.Id == newTeacher.Id);
+        var existing = teachers.FirstOrDefault(t => t.Name == newTeacher.Name);
         if (existing != null)
         {
-            existing.Name = newTeacher.Name;
+            throw new InvalidOperationException($"Преподаватель '{newTeacher.Name}' уже существует.");
         }
         else
         {
@@ -33,10 +33,10 @@ public class CourseManager
         if (newStudent == null)
             throw new ArgumentNullException(nameof(newStudent));
 
-        var existing = students.FirstOrDefault(s => s.Id == newStudent.Id || s.Name == newStudent.Name);
+        var existing = students.FirstOrDefault(s => s.Name == newStudent.Name);
         if (existing != null)
         {
-            existing.Name = newStudent.Name;
+            throw new InvalidOperationException($"Студент '{newStudent.Name}' уже существует.");
         }
         else
         {
@@ -89,10 +89,12 @@ public class CourseManager
         {
             throw new InvalidOperationException($"Курс '{courseTitle}' не найден.");
         }
+        if (!students.Any(s => s.Name == s.Name))
+        {
+            AddStudent(student);
+        }
 
-        AddStudent(student);
-
-        if (!course.Students.Any(s => s.Id == student.Id))
+        if (!course.Students.Any(s => s.Name == student.Name))
         {
             course.Students.Add(student);
         }
@@ -102,15 +104,41 @@ public class CourseManager
         }
     }
 
-    public void RemoveStudent(string courseTitle, Guid studentId)
+    public void EnrollTeacher(string courseTitle, Teacher teacher)
+    {
+        if (string.IsNullOrWhiteSpace(courseTitle))
+        {
+            throw new ArgumentException("Название курса не может быть пустым.");
+        }
+        if (teacher == null)
+        {
+            throw new ArgumentNullException(nameof(teacher));
+        }
+
+        var course = courses.FirstOrDefault(c => c.Title == courseTitle);
+        if (course == null)
+        {
+            throw new InvalidOperationException($"Курс '{courseTitle}' не найден.");
+        }
+        if (!teachers.Any(t => t.Name == t.Name))
+        {
+            AddTeacher(teacher);
+        }
+
+        course.Teacher = teacher;
+        course.Teacher?.Courses.Add(course);
+
+    }
+
+    public void RemoveStudent(string courseTitle, string studentName)
     {
         var course = courses.FirstOrDefault(c => c.Title == courseTitle);
         if (course == null)
             throw new InvalidOperationException($"Курс '{courseTitle}' не найден.");
 
-        var student = course.Students.FirstOrDefault(s => s.Id == studentId);
+        var student = course.Students.FirstOrDefault(s => s.Name == studentName);
         if (student == null)
-            throw new InvalidOperationException($"Студент с Id {studentId} не найден на курсе.");
+            throw new InvalidOperationException($"Студент с именем {studentName} не найден на курсе.");
 
         course.Students.Remove(student);
     }

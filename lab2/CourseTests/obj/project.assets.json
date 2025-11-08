@@ -411,6 +411,16 @@
         "build": {
           "build/net6.0/xunit.runner.visualstudio.props": {}
         }
+      },
+      "CourseLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/CourseLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CourseLib.dll": {}
+        }
       }
     }
   },
@@ -932,10 +942,16 @@
         "xunit.runner.visualstudio.2.8.2.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
+    },
+    "CourseLib/1.0.0": {
+      "type": "project",
+      "path": "../CourseLib/CourseLib.csproj",
+      "msbuildProject": "../CourseLib/CourseLib.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "CourseLib >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 17.12.0",
       "coverlet.collector >= 6.0.2",
       "xunit >= 2.9.2",
@@ -966,7 +982,11 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Nikit\\OneDrive\\Desktop\\ITMO\\Object-oriented_programming\\lab2\\CourseLib\\CourseLib.csproj": {
+              "projectPath": "C:\\Users\\Nikit\\OneDrive\\Desktop\\ITMO\\Object-oriented_programming\\lab2\\CourseLib\\CourseLib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

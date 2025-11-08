@@ -1,0 +1,12 @@
+C:\Users\Nikit\OneDrive\Desktop\ITMO\Object-oriented_programming\lab2\CourseLib\bin\Debug\net9.0\CourseLib.deps.json
+C:\Users\Nikit\OneDrive\Desktop\ITMO\Object-oriented_programming\lab2\CourseLib\bin\Debug\net9.0\CourseLib.dll
+C:\Users\Nikit\OneDrive\Desktop\ITMO\Object-oriented_programming\lab2\CourseLib\bin\Debug\net9.0\CourseLib.pdb
+C:\Users\Nikit\OneDrive\Desktop\ITMO\Object-oriented_programming\lab2\CourseLib\obj\Debug\net9.0\CourseLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nikit\OneDrive\Desktop\ITMO\Object-oriented_programming\lab2\CourseLib\obj\Debug\net9.0\CourseLib.AssemblyInfoInputs.cache
+C:\Users\Nikit\OneDrive\Desktop\ITMO\Object-oriented_programming\lab2\CourseLib\obj\Debug\net9.0\CourseLib.AssemblyInfo.cs
+C:\Users\Nikit\OneDrive\Desktop\ITMO\Object-oriented_programming\lab2\CourseLib\obj\Debug\net9.0\CourseLib.csproj.CoreCompileInputs.cache
+C:\Users\Nikit\OneDrive\Desktop\ITMO\Object-oriented_programming\lab2\CourseLib\obj\Debug\net9.0\CourseLib.sourcelink.json
+C:\Users\Nikit\OneDrive\Desktop\ITMO\Object-oriented_programming\lab2\CourseLib\obj\Debug\net9.0\CourseLib.dll
+C:\Users\Nikit\OneDrive\Desktop\ITMO\Object-oriented_programming\lab2\CourseLib\obj\Debug\net9.0\refint\CourseLib.dll
+C:\Users\Nikit\OneDrive\Desktop\ITMO\Object-oriented_programming\lab2\CourseLib\obj\Debug\net9.0\CourseLib.pdb
+C:\Users\Nikit\OneDrive\Desktop\ITMO\Object-oriented_programming\lab2\CourseLib\obj\Debug\net9.0\ref\CourseLib.dll
