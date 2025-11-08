@@ -1,0 +1,143 @@
+using CourseLib.Models;
+
+namespace CourseLib.Services;
+
+public class CourseManager
+{
+    private static readonly Lazy<CourseManager> instance = new(() => new CourseManager());
+    public static CourseManager Instance => instance.Value;
+
+    private readonly List<Course> courses = new();
+    private readonly List<Teacher> teachers = new();
+    private readonly List<Student> students = new();
+
+    private CourseManager() { }
+
+    public void AddTeacher(Teacher newTeacher)
+    {
+        if (newTeacher == null)
+            throw new ArgumentNullException(nameof(newTeacher));
+
+        var existing = teachers.FirstOrDefault(t => t.Id == newTeacher.Id);
+        if (existing != null)
+        {
+            existing.Name = newTeacher.Name;
+        }
+        else
+        {
+            teachers.Add(newTeacher);
+        }
+    }
+    public void AddStudent(Student newStudent)
+    {
+        if (newStudent == null)
+            throw new ArgumentNullException(nameof(newStudent));
+
+        var existing = students.FirstOrDefault(s => s.Id == newStudent.Id || s.Name == newStudent.Name);
+        if (existing != null)
+        {
+            existing.Name = newStudent.Name;
+        }
+        else
+        {
+            students.Add(newStudent);
+        }
+    }
+
+    public void AddCourse(Course course)
+    {
+        if (course == null)
+            throw new ArgumentNullException(nameof(course));
+        if (courses.Any(c => c.Id == course.Id))
+        {
+            throw new InvalidOperationException($"Курс '{course.Title}' уже существует.");
+        }
+        else
+        {
+            courses.Add(course);
+            course.Teacher?.Courses.Add(course);
+        }
+    }
+
+    public void RemoveCourse(string courseTitle)
+    {
+        var course = courses.FirstOrDefault(c => c.Title == courseTitle);
+        if (course == null)
+            throw new InvalidOperationException($"Курс '{courseTitle}' не найден.");
+
+        if (course.Teacher != null)
+        {
+            course.Teacher.Courses.Remove(course);
+        }
+
+        courses.Remove(course);
+    }
+
+    public void EnrollStudent(string courseTitle, Student student)
+    {
+        if (string.IsNullOrWhiteSpace(courseTitle))
+        {
+            throw new ArgumentException("Название курса не может быть пустым.");
+        }
+        if (student == null)
+        {
+            throw new ArgumentNullException(nameof(student));
+        }
+
+        var course = courses.FirstOrDefault(c => c.Title == courseTitle);
+        if (course == null)
+        {
+            throw new InvalidOperationException($"Курс '{courseTitle}' не найден.");
+        }
+
+        AddStudent(student);
+
+        if (!course.Students.Any(s => s.Id == student.Id))
+        {
+            course.Students.Add(student);
+        }
+        else
+        {
+            throw new InvalidOperationException("На данном курсе уже имеется такой студент.");
+        }
+    }
+
+    public void RemoveStudent(string courseTitle, Guid studentId)
+    {
+        var course = courses.FirstOrDefault(c => c.Title == courseTitle);
+        if (course == null)
+            throw new InvalidOperationException($"Курс '{courseTitle}' не найден.");
+
+        var student = course.Students.FirstOrDefault(s => s.Id == studentId);
+        if (student == null)
+            throw new InvalidOperationException($"Студент с Id {studentId} не найден на курсе.");
+
+        course.Students.Remove(student);
+    }
+    
+    public void RemoveTeacher(string courseTitle)
+    {
+        var course = courses.FirstOrDefault(c => c.Title == courseTitle);
+        if (course == null)
+            throw new InvalidOperationException($"Курс '{courseTitle}' не найден.");
+
+        if (course.Teacher == null)
+            throw new InvalidOperationException("На курсе нет преподавателя.");
+
+        var teacher = course.Teacher;
+        course.Teacher = null;
+
+        teacher.Courses.Remove(course);
+    }
+
+    public IEnumerable<Course> GetAllCourses() => courses;
+    public IEnumerable<Course> GetCoursesByTeacher(string teacherName) =>
+        courses.Where(c => c.Teacher?.Name == teacherName);
+
+    internal void Clear()
+    {
+        courses.Clear();
+        teachers.Clear();
+        students.Clear();
+    }
+}
